@@ -1,0 +1,27 @@
+.table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.table th,
+.table td {
+    padding: 8px 12px;
+    border-bottom: 1px solid #e5e7eb;
+    text-align: left;
+}
+
+.table th {
+    background-color: #f9fafb;
+    font-weight: 600;
+}
+
+.row {
+    background-color: white;
+}
+
+.expandButton {
+    background: none;
+    border: none;
+    cursor: pointer;
+    margin-right: 4px;
+}
