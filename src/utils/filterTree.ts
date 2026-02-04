@@ -12,17 +12,9 @@ export function filterTree(
     filter: ActiveFilter
 ): UserNode[] {
     return nodes
-        .map((node) => {
-            const filteredChildren = filterTree(node.children, filter);
-
-            if (matchesFilter(node, filter) || filteredChildren.length > 0) {
-                return {
-                    ...node,
-                    children: filteredChildren,
-                };
-            }
-
-            return null;
-        })
-        .filter((node): node is UserNode => node !== null);
+        .filter((node) => matchesFilter(node, filter))
+        .map((node) => ({
+            ...node,
+            children: filterTree(node.children, filter),
+        }));
 }

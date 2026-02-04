@@ -1,0 +1,17 @@
+.app {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 24px;
+}
+
+.app__title {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 24px;
+}
+.controls {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 24px;
+}

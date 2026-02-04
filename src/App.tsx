@@ -9,6 +9,7 @@ import type { SortConfig, ActiveFilter } from './utils/types';
 import { Table } from './components/Table/Table';
 import { Filters } from './components/Filters/Filters';
 import { SortControls } from './components/SortControls/SortControls';
+import './App.css';
 
 function App() {
     const [expandedRows, setExpandedRows] = useState<Set<number>>(new Set());
@@ -30,11 +31,14 @@ function App() {
     };
 
     return (
-        <div style={{ padding: 24 }}>
-            <h1>Tree Table</h1>
+        <div className="app">
+        <h1>Tree Table</h1>
 
-            <Filters value={filter} onChange={setFilter} />
-            <SortControls value={sort} onChange={setSort} />
+            <div className="controls">
+                <Filters value={filter} onChange={setFilter} />
+                <SortControls value={sort} onChange={setSort} />
+            </div>
+
 
             <Table
                 data={preparedData}

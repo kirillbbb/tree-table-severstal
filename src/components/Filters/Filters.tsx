@@ -1,4 +1,5 @@
 import type { ActiveFilter } from '../../utils/types';
+import './Filters.css';
 
 interface FiltersProps {
     value: ActiveFilter;
@@ -7,18 +8,16 @@ interface FiltersProps {
 
 export function Filters({ value, onChange }: FiltersProps) {
     return (
-        <div style={{ marginBottom: 16 }}>
-            <label>
-                Status:{' '}
-                <select
-                    value={value}
-                    onChange={(e) => onChange(e.target.value as ActiveFilter)}
-                >
-                    <option value="all">All</option>
-                    <option value="active">Active</option>
-                    <option value="inactive">Inactive</option>
-                </select>
-            </label>
+        <div className="filters">
+            <span className="filters__label">Статус</span>
+            <select
+                value={value}
+                onChange={(e) => onChange(e.target.value as ActiveFilter)}
+            >
+                <option value="all">Все</option>
+                <option value="active">Активные</option>
+                <option value="inactive">Неактивные</option>
+            </select>
         </div>
     );
 }

@@ -1,27 +1,83 @@
 .table {
     width: 100%;
-    border-collapse: collapse;
+    border-collapse: separate;
+    border-spacing: 0;
+    background-color: var(--color-surface);
+    border-radius: var(--radius-md);
+    overflow: hidden;
 }
 
-.table th,
-.table td {
-    padding: 8px 12px;
-    border-bottom: 1px solid #e5e7eb;
-    text-align: left;
+.table thead {
+    background-color: #fafafa;
 }
 
 .table th {
-    background-color: #f9fafb;
-    font-weight: 600;
+    text-align: left;
+    padding: 12px;
+    font-size: var(--font-size-sm);
+    font-weight: 500;
+    color: var(--color-muted);
+    border-bottom: 1px solid var(--color-border);
 }
 
-.row {
-    background-color: white;
+.table td {
+    padding: 12px;
+    border-bottom: 1px solid var(--color-border);
+    font-size: var(--font-size-sm);
+    vertical-align: middle;
 }
 
-.expandButton {
-    background: none;
+.table tbody tr:hover {
+    background-color: var(--color-hover);
+}
+
+.table__name {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.table__toggle {
     border: none;
+    background: none;
     cursor: pointer;
+    font-size: 12px;
+    padding: 0;
+    color: var(--color-muted);
+}
+
+.table__toggle:hover {
+    color: var(--color-text);
+}
+
+.table__copy {
+    cursor: pointer;
+}
+
+.table__copy:hover {
+    text-decoration: underline;
+    color: var(--color-accent);
+}
+
+.table__email {
+    max-width: 220px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: inline-block;
+    vertical-align: bottom;
+}
+
+.table__tree {
+    font-family: monospace;
+    color: #9ca3af;
     margin-right: 4px;
+    white-space: pre;
+}
+
+
+@media (max-width: 700px) {
+    .table__email {
+        max-width: 80px;
+    }
 }

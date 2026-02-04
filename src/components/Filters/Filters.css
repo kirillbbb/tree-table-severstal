@@ -1,0 +1,10 @@
+.filters {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.filters__label {
+    font-size: var(--font-size-sm);
+    color: var(--color-muted);
+}
