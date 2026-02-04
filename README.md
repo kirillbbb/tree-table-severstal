@@ -72,10 +72,10 @@ src
 │   ├── SortControls
 │   │   ├── SortControls.tsx
 │   │   └── SortControls.css
-│   ├── Table
-│   ├── Table.tsx
-│   ├── TableRow.tsx
-│   └── Table.css
+│   └── Table
+│       ├── Table.tsx
+│       ├── TableRow.tsx
+│       └── Table.css
 │
 ├── data
 │   └── users.ts
