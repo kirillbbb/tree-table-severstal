@@ -1,73 +1,101 @@
-# React + TypeScript + Vite
+# Tree Table (Test Task)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+SPA веб-приложение на **React + TypeScript**, реализованное в рамках **тестового задания (проект №9)** 
 
-Currently, two official plugins are available:
+Приложение отображает иерархические данные в виде таблицы с возможностью раскрытия вложенных элементов, фильтрации и сортировки.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## React Compiler
+## Описание задачи
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+На основе предоставленных данных реализовано SPA веб-приложение, которое:
 
-## Expanding the ESLint configuration
+- строит таблицу пользователей с иерархической структурой
+- позволяет раскрывать строки, имеющие дочерние элементы
+- поддерживает фильтрацию по полю `isActive`
+- поддерживает сортировку по полям `balance` и `email`
+- корректно работает независимо от порядка входных данных
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## Запуск проекта
+- npm install
+- npm run dev
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+---
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+## Реализованный функционал
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+### Таблица
+- Колонки:
+    - **Name**
+    - **Email**
+    - **Balance**
+    - **Status**
+- Иерархия строится по `parentId`
+- Поддерживается неограниченная глубина вложенности
+- Раскрытие/сворачивание узлов (`▶ / ▼`)
+- Визуальная индикация вложенности
+
+### Фильтрация
+- По статусу пользователя:
+    - Все
+    - Активные
+    - Неактивные
+- Фильтрация применяется ко всем уровням дерева
+
+### Сортировка
+- По полю `balance` (по возрастанию / убыванию)
+- По полю `email` (A–Z / Z–A)
+- Управление через отдельную панель сортировки
+
+### UX-улучшения
+- Копирование имени и email по клику
+- Адаптация длинных email (ellipsis) для небольших экранов
+
+---
+
+## Используемые технологии
+
+- **React 18**
+- **TypeScript**
+- **Vite**
+- **CSS** 
+
+---
+
+### Структура проекта
 ```
-
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+src
+├── components
+│   ├── Filters
+│   │   ├── Filters.tsx
+│   │   └── Filters.css
+│   ├── SortControls
+│   │   ├── SortControls.tsx
+│   │   └── SortControls.css
+│   ├── Table
+│   ├── Table.tsx
+│   ├── TableRow.tsx
+│   └── Table.css
+│
+├── data
+│   └── users.ts
+│
+├── models
+│   └── user.ts
+│
+├── utils
+│   ├── buildTree.ts
+│   ├── filterTree.ts
+│   ├── sortTree.ts
+│   ├── format.ts
+│   └── types.ts
+│
+├── styles
+│   ├── reset.css
+│   ├── variables.css
+│   └── global.css
+│
+├── App.tsx
+├── App.css
+└── main.tsx
 ```
