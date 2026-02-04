@@ -75,6 +75,18 @@
     white-space: pre;
 }
 
+.copy-tooltip {
+    position: fixed;
+    transform: translate(-50%, -120%);
+    background: white;
+    color: black;
+    border: 1px solid var(--color-border);
+    padding: 4px 8px;
+    font-size: 12px;
+    border-radius: 6px;
+    pointer-events: none;
+    animation: fadeInOut 1s ease forwards;
+}
 
 @media (max-width: 700px) {
     .table__email {

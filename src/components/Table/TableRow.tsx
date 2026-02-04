@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import type { UserNode } from '../../models/user';
 
 interface TableRowProps {
@@ -9,11 +10,28 @@ interface TableRowProps {
 }
 
 export function TableRow({node, level, expandedRows, onToggle, isLast = false,}: TableRowProps) {
+
     const isExpanded = expandedRows.has(node.id);
+
     const hasChildren = node.children.length > 0;
 
-    const copyToClipboard = (text: string) => {
+    const [copied, setCopied] = useState({x: 0, y: 0, visible: false,});
+
+    const copyToClipboard = (
+        text: string,
+        e: React.MouseEvent
+    ) => {
         navigator.clipboard.writeText(text);
+
+        setCopied({x: e.clientX, y: e.clientY, visible: true,
+        });
+
+        setTimeout(() => {
+            setCopied((prev) => ({
+                ...prev,
+                visible: false,
+            }));
+        }, 1000);
     };
 
     const treePrefix =
@@ -29,8 +47,7 @@ export function TableRow({node, level, expandedRows, onToggle, isLast = false,}:
                 <td>
                     <div
                         className="table__name"
-                        style={{ paddingLeft: level * 14 }}
-
+                        style={{ paddingLeft: level * 20 }}
                     >
                         <span className="table__tree">
                             {treePrefix}
@@ -40,9 +57,7 @@ export function TableRow({node, level, expandedRows, onToggle, isLast = false,}:
                             <button
                                 className="table__toggle"
                                 onClick={() => onToggle(node.id)}
-                                aria-label={
-                                    isExpanded ? 'Свернуть' : 'Развернуть'
-                                }
+                                aria-label={isExpanded ? 'Свернуть' : 'Развернуть'}
                             >
                                 {isExpanded ? '▼' : '▶'}
                             </button>
@@ -50,7 +65,9 @@ export function TableRow({node, level, expandedRows, onToggle, isLast = false,}:
 
                         <span
                             className="table__copy"
-                            onClick={() => copyToClipboard(node.name)}
+                            onClick={(e) =>
+                                copyToClipboard(node.name, e)
+                            }
                             title="Нажмите, чтобы скопировать"
                         >
                             {node.name}
@@ -61,7 +78,9 @@ export function TableRow({node, level, expandedRows, onToggle, isLast = false,}:
                 <td>
                     <span
                         className="table__copy table__email"
-                        onClick={() => copyToClipboard(node.email)}
+                        onClick={(e) =>
+                            copyToClipboard(node.email, e)
+                        }
                         title="Нажмите, чтобы скопировать"
                     >
                         {node.email}
@@ -70,7 +89,9 @@ export function TableRow({node, level, expandedRows, onToggle, isLast = false,}:
 
                 <td>${node.balance.toLocaleString()}</td>
 
-                <td>{node.isActive ? 'Active' : 'Inactive'}</td>
+                <td>
+                    {node.isActive ? 'Active' : 'Inactive'}
+                </td>
             </tr>
 
             {isExpanded &&
@@ -81,9 +102,21 @@ export function TableRow({node, level, expandedRows, onToggle, isLast = false,}:
                         level={level + 1}
                         expandedRows={expandedRows}
                         onToggle={onToggle}
-                        isLast={index === node.children.length - 1}
+                        isLast={
+                            index ===
+                            node.children.length - 1
+                        }
                     />
                 ))}
+
+            {copied.visible && (
+                <div
+                    className="copy-tooltip"
+                    style={{left: copied.x, top: copied.y,}}
+                >
+                    Скопировано
+                </div>
+            )}
         </>
     );
 }
